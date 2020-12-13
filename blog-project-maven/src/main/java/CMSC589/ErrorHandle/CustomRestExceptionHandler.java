@@ -28,8 +28,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    // 400
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
             final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
@@ -90,8 +88,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    //
-
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(final MethodArgumentTypeMismatchException ex,
             final WebRequest request) {
@@ -116,8 +112,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    // 404
-
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(final NoHandlerFoundException ex,
             final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
@@ -127,8 +121,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), error);
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
-
-    // 405
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
@@ -145,8 +137,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    // 415
-
     @Override
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(final HttpMediaTypeNotSupportedException ex,
             final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
@@ -160,19 +150,5 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 builder.substring(0, builder.length() - 2));
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
-
-    // 500
-
-    // @ExceptionHandler({ Exception.class })
-    // public ResponseEntity<Object> handleAll(final Exception ex, final WebRequest
-    // request) {
-    // logger.info(ex.getClass().getName());
-    // logger.error("error", ex);
-    // final ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-    // ex.getLocalizedMessage(),
-    // "error occurred");
-    // return new ResponseEntity<Object>(apiError, new HttpHeaders(),
-    // apiError.getStatus());
-    // }
 
 }
