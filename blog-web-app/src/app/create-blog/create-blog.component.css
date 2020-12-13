@@ -1,0 +1,14 @@
+h1 {
+    font-size: xx-large;
+    margin: 20px;
+    margin-left: 10%;
+}
+
+.content {
+    margin-left: 10%;
+}
+
+.content label {
+    font-size: medium;
+    font-weight: 500;
+}
