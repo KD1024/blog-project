@@ -42,15 +42,19 @@ public class BlogController {
     public Blog update(@PathVariable String id, @RequestBody Map<String, String> body) {
         int blogId = Integer.parseInt(id);
         Blog blog = blogRespository.findOne(blogId);
-        blog.setTitle(body.get("title"));
-        blog.setContent(body.get("content"));
-        blog.updateTime();
-        if (blog.getTitle() == null || blog.getTitle().length() == 0) {
-            throw new LackTitleException();
-        } else if (blog.getContent() == null || blog.getContent().length() == 0) {
-            throw new LackContentException();
+        if (blog == null) {
+            throw new NoGivenBlogException(blogId);
         } else {
-            return blogRespository.save(blog);
+            blog.setTitle(body.get("title"));
+            blog.setContent(body.get("content"));
+            blog.updateTime();
+            if (blog.getTitle() == null || blog.getTitle().length() == 0) {
+                throw new LackTitleException();
+            } else if (blog.getContent() == null || blog.getContent().length() == 0) {
+                throw new LackContentException();
+            } else {
+                return blogRespository.save(blog);
+            }
         }
     }
 
